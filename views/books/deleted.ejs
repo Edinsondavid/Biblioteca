@@ -1,0 +1,129 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="dashboard-header">
+    <h2 class="mb-0"><i class="fa fa-trash me-2"></i>Papelera de Libros</h2>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Libros en Papelera</h3>
+            <a href="/books" class="btn btn-primary btn-sm">Volver a Libros</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <% if (messages.success) { %>
+            <div class="alert alert-success" role="alert"><%- messages.success %></div>
+        <% } %>
+
+        <% if (messages.error) { %>
+            <div class="alert alert-danger" role="alert"><%- messages.error %></div>
+        <% } %>
+
+        <% if (data.length) { %>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Editorial</th>
+                        <th>Categoría</th>
+                        <th>ISBN</th>
+                        <th>Año</th>
+                        <th>Ejemplares</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i< data.length; i++) { %>
+                        <tr>
+                            <th scope="row"><%= (i+1) %></th>
+                            <td><%= data[i].title %></td>
+                            <td><%= data[i].author_name %></td>
+                            <td><%= data[i].editorial_name %></td>
+                            <td><%= data[i].category_name %></td>
+                            <td><%= data[i].isbn %></td>
+                            <td><%= data[i].year %></td>
+                            <td><%= data[i].available_copies %></td>
+                            <td class="text-center" style="white-space: nowrap;">
+                                <div class="action-buttons d-flex justify-content-center gap-1">
+                                    <a href="/books/toggle-state/<%= data[i].id_book %>" class="btn btn-success btn-sm" onclick="return confirm('¿Estás seguro de restaurar este libro?')" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">
+                                        <i class="fas fa-undo me-1"></i>Restaurar
+                                    </a>
+                                    <a href="/books/delete/<%= data[i].id_book %>" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar permanentemente este libro? Esta acción no se puede deshacer.')" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">
+                                        <i class="fas fa-trash-can me-1"></i>Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <div class="alert alert-info" role="alert">No hay libros en la papelera</div>
+        <% } %>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                search: "Buscar:",
+                lengthMenu: "Mostrar _MENU_ registros por página",
+                zeroRecords: "No se encontraron registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                infoEmpty: "Mostrando 0 a 0 de 0 registros",
+                infoFiltered: "(filtrado de _MAX_ registros totales)",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                },
+                thousands: ",",
+                decimal: ".",
+                emptyTable: "No hay datos disponibles",
+                aria: {
+                    sortAscending: ": activar para ordenar la columna ascendente",
+                    sortDescending: ": activar para ordenar la columna descendente"
+                },
+                processing: "Procesando...",
+                loadingRecords: "Cargando...",
+                infoThousands: ".",
+                searchBuilder: {
+                    add: "Añadir condición",
+                    condition: "Condición",
+                    clearAll: "Borrar todo",
+                    button: {
+                        0: "Constructor de búsqueda",
+                        _: "Constructor de búsqueda (%d)"
+                    }
+                }
+            },
+            pageLength: 5,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "Todos"]],
+            order: [[1, 'asc']],
+            responsive: true,
+            dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
+                 '<"row"<"col-sm-12"tr>>' +
+                 '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+            initComplete: function() {
+                // Wrap table in responsive container if not already wrapped
+                let table = $(this);
+                if (!table.parent().hasClass('table-responsive')) {
+                    table.wrap('<div class="table-responsive"></div>');
+                }
+            }
+        });
+    });
+</script>
+
+<div class="brand">
+    <i class="fas fa-book-reader"></i>
+    BiblioSena
+</div>
+
+<%- include('../layouts/footer.ejs') %> 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biblioteca - Libros</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <!-- Favicon -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/29/29302.png" type="image/png" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f111b;
+      color: #f0e6d2;
+    }
+    .sidebar {
+      background-color: #15161d;
+      min-height: 100vh;
+      padding-top: 1rem;
+      color: #f0e6d2;
+    }
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      color: #d4af37;
+    }
+    .nav-link {
+      color: #f0e6d2;
+      font-weight: 500;
+    }
+    .nav-link.active {
+      background-color: #d4af37;
+      color: #0f111b !important;
+      border-radius: 5px;
+    }
+    .nav-link:hover {
+      background-color: #d4af37;
+      color: #0f111b !important;
+      border-radius: 5px;
+    }
+    .user-info {
+      color: #f0e6d2;
+      margin-bottom: 2rem;
+    }
+    .user-info h5 {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    .user-info small {
+      color: #d4af37;
+    }
+    .content {
+      padding: 2rem;
+      background-color: #1a1b23;
+      border-radius: 8px;
+      margin-left: 15rem;
+      margin-top: 1rem;
+      margin-right: 1rem;
+      min-height: calc(100vh - 2rem);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #f0e6d2;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #2f2f38;
+    }
+    thead {
+      background-color: #d4af37;
+      color: #0f111b;
+    }
+    tbody tr:hover {
+      background-color: #2f2f38;
+    }
+    button.btn-primary {
+      background-color: #d4af37;
+      border: none;
+      color: #0f111b;
+      font-weight: 600;
+    }
+    button.btn-primary:hover {
+      background-color: #b6932a;
+      color: #0f111b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <nav class="col-md-3 col-lg-2 d-md-block sidebar position-fixed">
+    <div class="brand"><i class="fas fa-book-reader"></i> Biblioteca </div>
+    <div class="user-info text-center">
+      <h5>Edinson Berrio</h5>
+      <small>Administrador</small>
+    </div>
+    <ul class="nav flex-column px-3">
+      <li class="nav-item"><a class="nav-link" href="/index2"><i class="fas fa-home me-2"></i>Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link active" href="/books"><i class="fas fa-book me-2"></i>Libros</a></li>
+      <li class="nav-item"><a class="nav-link" href="/authors"><i class="fas fa-users me-2"></i>Autores</a></li>
+      <li class="nav-item"><a class="nav-link" href="/editorials"><i class="fas fa-building me-2"></i>Editoriales</a></li>
+      <li class="nav-item"><a class="nav-link" href="/loans"><i class="fas fa-handshake me-2"></i>Préstamos</a></li>
+      <li class="nav-item mt-3"><a class="nav-link text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main class="content">
+    <h1>Lista de Libros</h1>
+    <div class="mb-3">
+      <a href="/books/add" class="btn btn-success mb-2">
+        <i class="fas fa-plus me-2"></i>Agregar libro
+      </a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Editorial</th>
+          <th>Año</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se insertarán los libros dinámicamente -->
+        <tr>
+          <td colspan="5" class="text-center text-muted py-3">
+            No hay libros registrados aún.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

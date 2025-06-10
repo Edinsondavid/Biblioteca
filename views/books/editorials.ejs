@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Editoriales - Biblioteca</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
+    <!-- Custom Theme Colors -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f111b;
+            color: #f0e6d2;
+        }
+        .sidebar {
+            background-color: #15161d;
+            min-height: 100vh;
+            padding-top: 1rem;
+            color: #f0e6d2;
+            display: flex;
+            flex-direction: column;
+        }
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            color: #d4af37;
+        }
+        .nav-link {
+            color: #f0e6d2;
+            font-weight: 500;
+        }
+        .nav-link.active, .nav-link:hover {
+            background-color: #d4af37;
+            color: #0f111b !important;
+            border-radius: 5px;
+        }
+        .logout-section {
+            margin-top: auto;
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .user-info {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .dashboard-header {
+            background: #d4af37;
+            color: #0f111b;
+            padding: 1.5rem 2rem;
+            border-radius: 0 0 1rem 1rem;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            background-color: #1a1b23;
+            border: none;
+            border-radius: 16px;
+            color: #f0e6d2;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        .card-header {
+            border-bottom: 1px solid #2f2f38;
+        }
+        .table {
+            color: #f0e6d2;
+            font-size: 1.08rem;
+        }
+        thead {
+            background-color: #d4af37;
+            color: #0f111b;
+        }
+        tbody tr:hover {
+            background-color: #2f2f38;
+        }
+        .btn-light {
+            background-color: #d4af37;
+            color: #0f111b;
+            font-weight: 600;
+            border: none;
+        }
+        .btn-light:hover {
+            background-color: #b6932a;
+            color: #0f111b;
+        }
+        .btn-success {
+            background-color: #43a047;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #e53935;
+            border: none;
+        }
+        .footer {
+            background-color: #15161d;
+            color: #aaa;
+        }
+        .footer-divider {
+            border-top: 1px solid #2f2f38;
+        }
+        @media (max-width: 1400px) {
+            .dashboard-header, .card {
+                max-width: 98vw;
+            }
+        }
+        @media (max-width: 991px) {
+            .dashboard-header, .card {
+                max-width: 100vw;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block sidebar py-4">
+                <div class="brand">
+                    <i class="fas fa-book-reader"></i> Biblioteca
+                </div>
+                <div class="user-info">
+                    <strong>Edinson Berrio</strong><br>
+                    <strong style="color: #d4af37;">Administrador</strong>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="/"><i class="fa fa-home"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-book"></i> Préstamos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="authors"><i class="fa fa-users"></i> Autores</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="editorials"><i class="fa fa-list-alt"></i> Editoriales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/books"><i class="fa fa-book-open"></i> Libros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fa fa-cogs"></i> Categorías</a></li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto main-content">
+                <div class="dashboard-header">
+                    <h2 class="mb-0"><i class="fa fa-list-alt me-2"></i>Gestión de Editoriales</h2>
+                </div>
+
+                <% if (messages.success) { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i><%- messages.success %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+                <% if (messages.error) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i><%- messages.error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="fas fa-list-alt me-2"></i>Lista de Editoriales</h5>
+                            <div>
+                                <a href="/editorials/add" class="btn btn-light btn-lg px-4 py-2" style="font-size:1.1rem;">
+                                    <i class="fas fa-plus me-2"></i>Agregar Editorial
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <% if(data.length) { %>
+                        <div class="table-responsive">
+                            <table id="editorialsTable" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Estado</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% for(var i = 0; i< data.length; i++) { %>
+                                    <tr>
+                                        <th scope="row"><%= (i+1) %></th>
+                                        <td><%= data[i].name%></td>
+                                        <td>
+                                            <span class="badge <%= data[i].state === 1 ? 'bg-success' : 'bg-danger' %>">
+                                                <%= data[i].state === 1 ? 'Activo' : 'Inactivo' %>
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="action-buttons">
+                                                <a class="btn btn-success btn-sm" href="/editorials/edit/<%=data[i].id_editorial%>">
+                                                    <i class="fas fa-pen-to-square me-2"></i>Editar
+                                                </a>
+                                                <a class="btn btn-danger btn-sm ms-2" onclick="return confirm('¿Estás seguro de eliminar esta editorial?')" href="/editorials/delete/<%=data[i].id_editorial%>">
+                                                    <i class="fas fa-trash-can me-2"></i>Eliminar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% } else { %>
+                        <div class="text-center py-5">
+                            <i class="fas fa-list-alt fa-3x text-muted mb-3"></i>
+                            <p class="lead text-muted">No se encontraron editoriales</p>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Initialize DataTable -->
+    <script>
+        $(document).ready(function() {
+            $('#editorialsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    search: "Buscar:",
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "No se encontraron registros",
+                    info: "Mostrando página _PAGE_ de _PAGES_",
+                    infoEmpty: "No hay registros disponibles",
+                    infoFiltered: "(filtrado de _MAX_ registros totales)",
+                    paginate: {
+                        first: "Primero",
+                        last: "Último",
+                        next: "Siguiente",
+                        previous: "Anterior"
+                    }
+                },
+                pageLength: 5,
+                lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "Todos"]],
+                order: [[0, "asc"]],
+                responsive: true
+            });
+        });
+    </script>
+</body>
+</html>
